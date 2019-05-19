@@ -1,16 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const App = () => {
-  window.navigator.geolocation.getCurrentPosition(
-    // if true
+// Class Component
+
+class App extends React.Component {
+  render() {
+    window.navigator.geolocation.getCurrentPosition(
+    // first argument - success callback
     (position) => console.log(position),
-    // if false
+    // second argument
     (error) => console.log(error)
   );
 
-  return <div>Hi there!</div>;
+  return (
+    <div>Latitude: </div>
+    );
+  }
 }
+
+
+// Functional Component
+
+// const App = () => {
+//   // built in geolocation function (https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
+//   window.navigator.geolocation.getCurrentPosition(
+//     // first argument - success callback
+//     (position) => console.log(position),
+//     // second argument
+//     (error) => console.log(error)
+//   );
+
+//   return (
+//      <div>Latitude: </div>
+//   );
+// }
 
 ReactDOM.render(
   <App />,
