@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import LoadingScreen from './LoadingScreen';
 
 // Class Component
 
@@ -18,17 +19,21 @@ class App extends React.Component {
     );
   }
 
+  renderContent() {
+    if (this.state.errorMessage) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (this.state.lat) {
+      return <SeasonDisplay lat={this.state.lat}/>;
+    }
+
+    return <LoadingScreen message="Please accept location request"/>;
+    }
+
   // Render method must always exist in every component
   render() {
-      if (this.state.errorMessage) {
-        return <div>Error: {this.state.errorMessage}</div>;
-      }
-
-      if (this.state.lat) {
-        return <SeasonDisplay lat={this.state.lat}/>
-      }
-
-      return <div>loading...</div>;
+      return <div className="border red">{this.renderContent()}</div>
     }
   }
     
