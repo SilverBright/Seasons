@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 // Class Component
 
 class App extends React.Component {
+  // Delete constructor function, babel will still compile constructor method
   state = { lat: null, errorMessage: ''};
 
   componentDidMount() {
