@@ -14,26 +14,33 @@ class App extends React.Component {
 
     // this.state = { key: value }
     // This is only time we do direct assignment to this.state
-    this.state = { lat: null };
+    this.state = { lat: null, errorMessage: '' };
 
     window.navigator.geolocation.getCurrentPosition(
-      // first argument - success callback
-      // Call setState to update from null to new state
+      // position is a callback function
       position => {
+        // Update the state (updating) by using setState
         this.setState({ lat: position.coords.latitude });
       },
-      // second argument
-      error => console.log(error)
+      // second argument/callback
+      error => {
+        this.setState({ errorMessage: error.message });
+      }
     );
   }
 
   // Render method must always exist in every component
   render() {
-    return (
-      <div>
-        Latitude: {this.state.lat}
-      </div>
-    );
+      if (this.state.errorMessage) {
+        return <div>Error: {this.state.errorMessage}</div>;
+      }
+
+      if (this.state.lat) {
+        return <div>Latitude: {this.state.lat}</div>;
+      }
+
+      return <div>loading...</div>;
+    };
   }
 
 
@@ -52,7 +59,6 @@ class App extends React.Component {
 //   return (
 //      <div>Latitude: </div>
 //   );
-}
 
 ReactDOM.render(<App />,
   document.querySelector('#root')
